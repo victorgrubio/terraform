@@ -46,16 +46,24 @@ func (p *hashicupsProvider) Metadata(_ context.Context, _ provider.MetadataReque
 // The Plugin Framework uses a provider's Schema method to define the acceptable configuration attribute names and types.
 // The HashiCups client needs a host, username, and password to be properly configured.
 // The Terraform Plugin Framework types package contains schema and data model types that can work with Terraform's null, unknown, or known values.
+// Docs:
+// The tfplugindocs tool will automatically include schema-based descriptions, if present in a data source, provider, or resource's schema. 
+// The schema.Schema type's Description field describes the data source, provider, or resource itself. 
+// Each attribute's or block's Description field describes that particular attribute or block. 
+// These descriptions should be tailored to practitioner usage and include any caveats or value expectations, 
+// such as special syntax.
 func (p *hashicupsProvider) Schema(_ context.Context, _ provider.SchemaRequest, resp *provider.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		Attributes: map[string]schema.Attribute{
-			"host": schema.StringAttribute{
+			"host": schema.StringAttribute{Description: "URI for HashiCups API. May also be provided via HASHICUPS_HOST environment variable.",
 				Optional: true,
 			},
 			"username": schema.StringAttribute{
+				Description: "Username for HashiCups API. May also be provided via HASHICUPS_USERNAME environment variable.",
 				Optional: true,
 			},
 			"password": schema.StringAttribute{
+				Description: "Password for HashiCups API. May also be provided via HASHICUPS_PASSWORD environment variable.",
 				Optional:  true,
 				Sensitive: true,
 			},
