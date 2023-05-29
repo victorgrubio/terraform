@@ -288,4 +288,21 @@ func (r *orderResource) Update(ctx context.Context, req resource.UpdateRequest, 
 
 // Delete removes the resource and deletes the Terraform state on success.
 func (r *orderResource) Delete(ctx context.Context, req resource.DeleteRequest, resp *resource.DeleteResponse) {
+    // Retrieves value from state
+    var state orderResourceModel
+    diags := req.State.Get(ctx, &state)
+    resp.Diagnostics.Append(diags...)
+    if resp.Diagnostics.HasError() {
+        return
+    }
+
+    // Delete existing order
+    err := r.client.DeleteOrder(state.ID.ValueString())
+    if err != nil {
+        resp.Diagnostics.AddError(
+            "Error Deleting Hashicups Order",
+            "Could not delete order, unexpected error: "+err.Error(),
+        )
+        return
+    }
 }
