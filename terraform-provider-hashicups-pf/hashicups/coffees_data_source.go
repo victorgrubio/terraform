@@ -60,35 +60,45 @@ func (d *coffeesDataSource) Schema(_ context.Context, _ datasource.SchemaRequest
 	resp.Schema = schema.Schema{
 		Attributes: map[string]schema.Attribute{
 			"id": schema.StringAttribute{
+				Description: "Placeholder identifier attribute.",
 				Computed: true,
 			},
 			"coffees": schema.ListNestedAttribute{
+				Description: "List of coffees.",
 				Computed: true,
 				NestedObject: schema.NestedAttributeObject{
 					Attributes: map[string]schema.Attribute{
 						"id": schema.Int64Attribute{
+                            Description: "Numeric identifier of the coffee.",
 							Computed: true,
 						},
 						"name": schema.StringAttribute{
+                            Description: "Product name of the coffee.",
 							Computed: true,
 						},
 						"teaser": schema.StringAttribute{
+                            Description: "Fun tagline for the coffee.",
 							Computed: true,
 						},
 						"description": schema.StringAttribute{
+                            Description: "Product description of the coffee.",
 							Computed: true,
 						},
 						"price": schema.Float64Attribute{
+                            Description: "Suggested cost of the coffee.",
 							Computed: true,
 						},
 						"image": schema.StringAttribute{
+                            Description: "URI for an image of the coffee.",
 							Computed: true,
 						},
 						"ingredients": schema.ListNestedAttribute{
+                            Description: "List of ingredients in the coffee.",
 							Computed: true,
 							NestedObject: schema.NestedAttributeObject{
 								Attributes: map[string]schema.Attribute{
 									"id": schema.Int64Attribute{
+										Description: "Numeric identifier of the coffee ingredient.",
 										Computed: true,
 									},
 								},
